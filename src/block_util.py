@@ -31,7 +31,7 @@ def block_to_html_node(block):
 
 def text_to_children(text):
     text_nodes = text_to_textnodes(text)
-    print(text_nodes)
+    # print(text_nodes)
     children = []
     for text_node in text_nodes:
         html_node = text_node_to_html_node(text_node)
@@ -75,10 +75,12 @@ def code_to_html_node(block):
 
 def quote_to_html_node(block):
     lines = block.split('\n')
+    new_lines = []
     for line in lines:
-        line = line[1:]
-        line.strip()
-    stripped_text = ' '.join(lines)
+        if not line.startswith('>'):
+            raise ValueError('Invalid quote block')
+        new_lines.append(line.lstrip('>').strip())
+    stripped_text = ' '.join(new_lines)
     children = text_to_children(stripped_text)
     return ParentNode('blockquote', children)
 
