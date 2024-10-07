@@ -3,6 +3,7 @@ from leafnode import LeafNode
 from block_util import *
 from textnode import TextNode
 from inline_util import *
+from file_generation import *
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -181,6 +182,21 @@ This is another paragraph with *italic* text and `code` here
         )
 
     
+    def test_extract_title(self):
+        md = """
+# this is an h1
+
+this is paragraph text
+
+## this is an h2
+"""
+
+        h1_header = extract_title(md)
+        self.assertEqual(
+            h1_header,
+            "this is an h1",
+        )
+
 
     def test_headings(self):
         md = """

@@ -12,6 +12,7 @@ def markdown_to_html_node(markdown):
         html_node = block_to_html_node(block)
         children.append(html_node)
     # print(ParentNode("div", children, None), 'node')
+    print(children, "THESE ARE THE CHILDREN")
     return ParentNode("div", children, None)
     
 def block_to_html_node(block):
@@ -70,7 +71,7 @@ def code_to_html_node(block):
         raise ValueError("Invalid code block")
     text = block[4:-3]
     children = text_to_children(text)
-    code = ParentNode("code", children)
+    code = [ParentNode("code", children)]
     return ParentNode('pre', code)
 
 def quote_to_html_node(block):

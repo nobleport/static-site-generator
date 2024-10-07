@@ -29,6 +29,7 @@ class ParentNode(HTMLNode):
         start_tag = f'<{self.tag}{self.props_to_html()}>'
         end_tag = f'</{self.tag}>'
         internal_constructor = ''
+        print(self.children, 'THESE ARE THE CHILDREN')
         for child in self.children:
             # print(child, 'child')
             if child is not None:
