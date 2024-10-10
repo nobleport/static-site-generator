@@ -1,3 +1,4 @@
+from pathlib import Path
 import os, shutil
 from textnode import TextNode
 from block_util import markdown_to_html_node
@@ -11,7 +12,7 @@ def static_to_public(src, dst):
     recursive_call(src, dst)
 
 def recursive_call(src, dst):
-    print(os.listdir(src))
+    # print(os.listdir(src))
     if not os.path.isfile(src):
         #if its a directory
         os.mkdir(dst)
@@ -50,3 +51,14 @@ def generate_page(from_path, template_path, dest_path):
     
     with open(dest_path, 'w') as file:
         file.write(title_added)
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    for filename in os.listdir(dir_path_content):
+        from_path = os.path.join(dir_path_content, filename)
+        dest_path = os.path.join(dest_dir_path, filename)
+        if os.path.isfile(from_path):
+            dest_path = Path(dest_path).with_suffix(".html")
+            generate_page(from_path, template_path, dest_path)
+        else:
+            generate_pages_recursive(from_path, template_path, dest_path)
+    
